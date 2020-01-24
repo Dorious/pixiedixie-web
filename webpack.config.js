@@ -37,7 +37,8 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
-    port: 9000
+    port: 9000,
+    historyApiFallback: true,
   },
 
   output: {
@@ -45,7 +46,9 @@ module.exports = {
     filename: 'pixiendixie.js'
   },
 
-  plugins: [new HtmlWebpackPlugin()],
+  plugins: [new HtmlWebpackPlugin({
+    title: "Pixie & Dixie - the ultimate image search!"
+  })],
 
   performance: {
     hints: false,
