@@ -1,0 +1,26 @@
+{
+  "name": "pixiedixie-web",
+  "version": "1.0.0",
+  "description": "Pixie & Dixie Dev Test Front-end Demo",
+  "main": "src/index.tsx",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dorious/pixiedixie-web.git"
+  },
+  "keywords": [
+    "gif",
+    "gifs",
+    "mem",
+    "mems",
+    "react"
+  ],
+  "author": "Dariusz Arciszewski",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Dorious/pixiedixie-web/issues"
+  },
+  "homepage": "https://github.com/Dorious/pixiedixie-web#readme"
+}
