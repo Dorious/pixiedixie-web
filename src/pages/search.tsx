@@ -76,6 +76,7 @@ export const ErrorMessage: React.FC<IErrorMessage> = ({error}) => {
 const Search: React.FC<RouteComponentProps> = (router) => {
   const [{
     searchValue, results, loading, offset, count, requestError, resultsSearchValue,
+    totalCount
   }, dispatch] = useContext(AppContext);
 
   const {history, location} = router;
@@ -83,7 +84,8 @@ const Search: React.FC<RouteComponentProps> = (router) => {
   const qs = querystring.parse(location.search);
 
   let title = "Trending images";
-  if(resultsSearchValue) title = `Search results for "${resultsSearchValue}"...`;
+  if(resultsSearchValue) 
+    title = `Found ${totalCount} results for "${resultsSearchValue}"...`;
 
   useEffect(() => {
     if(JSON.stringify(history) !== JSON.stringify(historyPrevious)) {

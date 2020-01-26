@@ -16,7 +16,7 @@ export const ImagesContainer = styled.div`
 
   @media (min-width: ${responsiveWidth}) {
     flex-flow: wrap;
-    justify-content: left;  
+    justify-content: space-evenly;  
     margin: -10px;
   }
 `;
@@ -36,12 +36,12 @@ export const ImageContainer = styled.a`
   & img {
     width: 100%;
     height: auto;
-    display: block;
+    display: inline-block;
   }
 
   @media (min-width: ${responsiveWidth}) {
-    height: 45vh;
-    max-height: 270px;
+    height: 26vh;
+    min-height: 100px;
     width: auto;
     display: flex;
     margin: 10px;

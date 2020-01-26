@@ -24,9 +24,13 @@ const GlobalStyle = createGlobalStyle`
   }
 
   h1 {
-    font-size: 150%;
+    font-size: 120%;
     font-weight: Normal;
     color: #ff0088;
+
+    @media (min-width: 800px) {
+      font-size: 150%;
+    }
   }
 `
 
