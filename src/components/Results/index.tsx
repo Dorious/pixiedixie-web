@@ -34,7 +34,7 @@ export interface IResults {
 }
 
 const Results: React.FC<IResults> = ({title, results, loading, offset, onScrollEnd}) => {
-  const titleNode = title || "Super images!"
+  const titleNode = title;
   const [state, dispatch] = useContext(AppContext);
 
   const scrollHandler = (event: Event, results: any, dispatch: React.Dispatch<{}>) => {
@@ -78,7 +78,7 @@ const Results: React.FC<IResults> = ({title, results, loading, offset, onScrollE
 
   return (
     <>
-      <h1>{titleNode}</h1>
+      {titleNode ? <h1>{titleNode}</h1> : null}
       <Loader visible={loading || false} />
       <PlaceHolder>
         <SC.ImageContainer></SC.ImageContainer>

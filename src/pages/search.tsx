@@ -84,8 +84,13 @@ const Search: React.FC<RouteComponentProps> = (router) => {
   const qs = querystring.parse(location.search);
 
   let title = "Trending images";
+
   if(resultsSearchValue) 
     title = `Found ${totalCount} results for "${resultsSearchValue}"...`;
+
+  // Remove the title when no results and it's loading
+  if(!results.length && loading)
+    title = null;
 
   useEffect(() => {
     if(JSON.stringify(history) !== JSON.stringify(historyPrevious)) {

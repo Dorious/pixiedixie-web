@@ -16,7 +16,8 @@ export const ImagesContainer = styled.div`
 
   @media (min-width: ${responsiveWidth}) {
     flex-flow: wrap;
-    justify-content: space-evenly;  
+    align-items: stretch;
+    justify-content: space-between;
     margin: -10px;
   }
 `;
