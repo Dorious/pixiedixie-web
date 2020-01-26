@@ -3,14 +3,17 @@ import { AppContext, usePrevious } from "../App";
 import Results from "../components/Results";
 import { __RouterContext, RouteComponentProps } from "react-router";
 import axios from "axios";
-import querystring from "querystring";
+import querystring from "query-string";
+import styled from "styled-components";
+import styles from "../styles";
+import Logo from "../components/Logo";
 
 const DoSearch = async (router: RouteComponentProps, loading: boolean, dispatch: any, offset?: string, count?:  string) => {
   // Show loader
   if(!loading) dispatch({type: 'showLoader'});
 
   // Parse query
-  const params = querystring.parse(router.location.search.substr(1, router.location.search.length));
+  const params = querystring.parse(router.location.search);
   let url = "/api/v1/images";
 
   if(params.q) {
@@ -28,40 +31,100 @@ const DoSearch = async (router: RouteComponentProps, loading: boolean, dispatch:
   return Promise.resolve(result);
 };
 
+export interface IErrorMessage {
+  error: Error
+}
+
+export const ErrorContainer = styled.div`
+  position: fixed;
+  z-index: 10;
+  padding: 20px 40px;
+  background: #fff;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+  margin-top: 10%;
+  margin-left: 35%;
+`
+
+export const Sad = styled.div`
+  transform: rotate(45deg);
+  display: inline-block;
+  color: ${styles.pink};
+
+  &::after {
+    content: ';(';
+    font-size: 800%;
+  }
+`
+
+export const LogoContainer = styled.div`
+  position: absolute;
+  top: 42px;
+  transform: scale(1.3) rotate(4deg);
+  right: 21%;
+`
+
+export const ErrorMessage: React.FC<IErrorMessage> = ({error}) => {
+  return error ? <ErrorContainer>
+    <Sad />
+    <LogoContainer>
+      <Logo />
+    </LogoContainer>
+    {error.message}
+  </ErrorContainer> : null
+}
+
 const Search: React.FC<RouteComponentProps> = (router) => {
-  const [{results, loading, offset, count}, dispatch] = useContext(AppContext);
+  const [{
+    searchValue, results, loading, offset, count, requestError, resultsSearchValue,
+  }, dispatch] = useContext(AppContext);
+
   const {history, location} = router;
   const historyPrevious = usePrevious(Object.assign({}, history));
+  const qs = querystring.parse(location.search);
 
-  const title = "Trending images";
+  let title = "Trending images";
+  if(resultsSearchValue) title = `Search results for "${resultsSearchValue}"...`;
 
   useEffect(() => {
     if(JSON.stringify(history) !== JSON.stringify(historyPrevious)) {
+      // This is ugly here but scroll to the top
+      if(window)
+        window.scrollTo(0, 0);
+
       DoSearch(router, loading, dispatch, offset, count)
         .then((data) => {
           dispatch({
             type: "setResults",
-            response: data.data
+            response: data.data,
+            resultsSearchValue: qs.q 
           });
         }).catch((reason) => {
           dispatch({
             type: "requestError",
-            error: "",
+            error: reason,
           });
         });
     }
   });
 
-  return <Results 
-    results={results} 
-    loading={loading}
-    title={title}
-    onScrollEnd={async (results: any, dispatch: React.Dispatch<{}>) => {
-      let newOffset = offset+count;
-      let response = await DoSearch(router, true, dispatch, newOffset, count);
-      return Promise.resolve(response);
-    }}
-  />;
+  return <>
+    <ErrorMessage error={requestError} />
+    <Results 
+      results={results} 
+      loading={loading}
+      title={title}
+      onScrollEnd={async (results: any, dispatch: React.Dispatch<{}>) => {
+        let newOffset = offset+count;
+        let response = await DoSearch(router, true, dispatch, newOffset, count).catch((reason) => {
+          dispatch({
+            type: "requestError",
+            error: reason,
+          });
+        });
+        return Promise.resolve(response);
+      }}
+    />
+  </>;
 };
 
 export default React.memo(Search);

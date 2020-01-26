@@ -1,4 +1,4 @@
-import React, { useState, useRef, ChangeEvent } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import {__RouterContext} from "react-router";
 import styled from "styled-components";
 import SearchIcon from "../images/active-search.svg";
@@ -22,10 +22,6 @@ const SearchContainer = styled.div`
       transform: scale(0.7);
     }
   }
-
-  &:focus {
-    background: #fff;
-  }
 `
 
 const Input = styled.div`
@@ -40,27 +36,30 @@ const Input = styled.div`
     border-left: 1px solid #95004f;
     color: #ff0088;
     flex-grow: 1;
-    
 
     &:focus {
       outline: 0;
+      background: #fff;
     }
   }
 `
 
 const Search: React.FC<React.HTMLProps<HTMLInputElement>> = (props) => {
   const [searchValue, setSearchValue] = useState(props.value);
-  const propsRef = useRef();
+  let inputRef:any = null;
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.currentTarget.value);
     return props.onChange(event);
   }
+  
+  useEffect(() => {
+  });
 
   return (
     <SearchContainer>
       <Input>
-        <input {...props} value={searchValue} onChange={onChange} />
+        <input {...props} ref={(ref) => { inputRef = ref}} value={searchValue} onChange={onChange} />
       </Input>
       <SearchIcon />
     </SearchContainer>

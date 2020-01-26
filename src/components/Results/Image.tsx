@@ -7,50 +7,57 @@ export interface IImageComponent {
   image: IImage;
 }
 
+export const responsiveWidth = '800px';
+
 export const ImagesContainer = styled.div`
   display: flex;
   flex-flow: column;
   position: relative;
 
-  @media (min-width: 640px) {
+  @media (min-width: ${responsiveWidth}) {
     flex-flow: wrap;
     justify-content: left;  
     margin: -10px;
   }
 `;
 
-export const ImageContainer = styled.div`
+export const ImageContainer = styled.a`
   width: 100%;
   height: auto;
   margin-bottom: 15px;
   background: #fff;
+  box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+  display: block;
 
-  & > a > img {
+  &:hover {
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+  }
+
+  & img {
     width: 100%;
     height: auto;
     display: block;
   }
 
-  @media (min-width: 640px) {
+  @media (min-width: ${responsiveWidth}) {
     height: 45vh;
     max-height: 270px;
     width: auto;
     display: flex;
     margin: 10px;
 
-    & > a > img {
+    & > a {
+      display: inline-block;
+    }
+
+    & img {
       width: auto;
       height: 100%;
     }
   }
 `;
 
-export const ImageAnchor = styled.a`
-  box-shadow: 0 5px 12px rgba(0,0,0,0.1);
-  &:hover {
-    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-  }
-`
+export const ImageAnchor = styled.a``
   
 const ImageComponent: React.FC<IImageComponent> = ({image}) => {
   const img = image.images[0];
@@ -71,9 +78,7 @@ const ImageComponent: React.FC<IImageComponent> = ({image}) => {
     />
   }
 
-  return <ImageAnchor href={image.pageUrl} target="_blank">
-    {Component}
-  </ImageAnchor>
+  return Component
 }
 
-export default ImageComponent;
+export default React.memo(ImageComponent);

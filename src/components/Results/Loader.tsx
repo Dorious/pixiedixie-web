@@ -14,7 +14,7 @@ const Loader: React.FC<ILoader> = ({visible}) => {
     left: 0;
     height: 100%;
     width: 100%;
-    background: rgba(255,255,255,0.8);
+    background: rgba(238,238,238,0.8);
     z-index: 1;
     ${!visible ? "display:none;": ""}
 

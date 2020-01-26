@@ -1,10 +1,10 @@
 import React, { ReactNode, useRef, useEffect, useState, useContext } from "react";
-import ResultsJson from "../../../__mocks__/results.json";
 import { IImage, IImageSize } from "pixiedixie-api/dist/datasources/adapter";
 import * as SC from "./Image";
 import ImageComponent from "./Image";
 import Loader from "./Loader";
 import { AppContext } from "../../App";
+import styled from "styled-components";
 
 let scrollIsOn = false;
 
@@ -41,7 +41,7 @@ const Results: React.FC<IResults> = ({title, results, loading, offset, onScrollE
 
     const html = document.querySelector('html');
 
-    if(window.innerHeight + html.scrollTop >= html.offsetHeight-300) {
+    if(window.innerHeight + html.scrollTop >= html.offsetHeight-600) {
       scrollIsOn=true;
 
       fireLazyLoad(results, dispatch, onScrollEnd)
@@ -57,29 +57,43 @@ const Results: React.FC<IResults> = ({title, results, loading, offset, onScrollE
   // Need to pass setResults to scroll event
   const thisScrollHandler = (event: Event) => {
     return scrollHandler(event, results, dispatch);
-  }; 
+  };
 
   useEffect(() => {
-    if(document)
+    if(document) {
       document.addEventListener("scroll", thisScrollHandler);
+    }
 
     return () => {
-      if(document)
-        document.removeEventListener("scroll", thisScrollHandler)
+      if(document) {
+        document.removeEventListener("scroll", thisScrollHandler);
+      }
     }
   });
+
+  const PlaceHolder = styled(SC.ImagesContainer)`
+    position: absolute;
+  `
+
+  interface IImageExtended extends IImage {
+    basisWidth: number,
+    basisHeight: number
+  }
 
   return (
     <>
       <h1>{titleNode}</h1>
       <Loader visible={loading || false} />
+      <PlaceHolder>
+        <SC.ImageContainer></SC.ImageContainer>
+      </PlaceHolder>
       <SC.ImagesContainer>
         {results.map((image: object, index: number) => {
           // This sux but otherwise TS complained that `image` doesn't have shit
-          const imgObj: IImage = JSON.parse(JSON.stringify(image));
+          const imgObj: IImageExtended = JSON.parse(JSON.stringify(image));
 
           return (
-            <SC.ImageContainer key={imgObj.pageUrl}>
+            <SC.ImageContainer key={imgObj.pageUrl+index} href={imgObj.pageUrl} target="_blank">
               <ImageComponent image={imgObj} />
             </SC.ImageContainer>
           )

@@ -9,9 +9,13 @@ import reducer from "./reducer";
 import SearchPage from "./pages/search";
 
 const GlobalStyle = createGlobalStyle`
+  html {
+    min-height: 100%;
+  }
+
   body {
     margin: 0;
-    background: #f9f9f9;
+    background: #eee;
   }
 
   body, input, textarea, td {
@@ -27,7 +31,7 @@ const GlobalStyle = createGlobalStyle`
 `
 
 const AppBody = styled.div`
-  margin: 58px 20px 100px 20px;
+  margin: 58px 20px 250px 20px;
 `
 
 const location = window.location;
@@ -42,9 +46,12 @@ export const initialState: any = {
   selectedDatasources: [],
   loading: false,
   results: [],
+  resultsSearchValue: '',
   offset: 0,
   count: 25,
   totalCount: 0,
+  requestError: null,
+  showError: false
 }
 
 export interface IAppProvider {

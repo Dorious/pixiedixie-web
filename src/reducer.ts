@@ -3,7 +3,8 @@ export default (state: any, action: any) => {
     case 'showLoader':
       return {
         ...state,
-        loading: true
+        loading: true,
+        showError: false, // Turn off error message
       };
     case 'hideLoader':
       return {
@@ -16,7 +17,8 @@ export default (state: any, action: any) => {
         results: action.response.data,
         loading: false,
         totalCount: action.response.totalCount,
-        offset: action.response.offset
+        offset: action.response.offset,
+        resultsSearchValue: action.resultsSearchValue
       }
     case 'mergeResults':
       return {
@@ -29,6 +31,12 @@ export default (state: any, action: any) => {
       return {
         ...state,
         searchValue: action.value
+      }
+    case 'requestError':
+      return {
+        ...state,
+        requestError: action.error,
+        showError: true
       }
 
     default:
