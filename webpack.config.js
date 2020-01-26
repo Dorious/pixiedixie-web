@@ -2,7 +2,7 @@ var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  mode: process.env.NODE_ENV,
+  mode: process.env.NODE_ENV || "production",
 
   // Enable sourcemaps for debugging webpack's output.
   devtool: "source-map",
@@ -15,7 +15,7 @@ module.exports = {
     rules: [
       {
         test: /\.ts(x?)$/,
-        exclude: /node_modules/,
+        exclude: /node_modules|\.svg/,
         use: [
           {
             loader: "ts-loader"
@@ -37,8 +37,11 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
-    port: 9000,
+    port: 9001,
     historyApiFallback: true,
+    proxy: {
+      '/api/v1': 'http://localhost:8001/'
+    } 
   },
 
   output: {
@@ -47,7 +50,10 @@ module.exports = {
   },
 
   plugins: [new HtmlWebpackPlugin({
-    title: "Pixie & Dixie - the ultimate image search!"
+    title: "Pixie & Dixie - the ultimate image search!",
+    meta: {
+      viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no'
+    }
   })],
 
   performance: {
