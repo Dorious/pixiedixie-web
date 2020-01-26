@@ -75,11 +75,6 @@ const Results: React.FC<IResults> = ({title, results, loading, offset, onScrollE
     position: absolute;
   `
 
-  interface IImageExtended extends IImage {
-    basisWidth: number,
-    basisHeight: number
-  }
-
   return (
     <>
       <h1>{titleNode}</h1>
@@ -90,7 +85,7 @@ const Results: React.FC<IResults> = ({title, results, loading, offset, onScrollE
       <SC.ImagesContainer>
         {results.map((image: object, index: number) => {
           // This sux but otherwise TS complained that `image` doesn't have shit
-          const imgObj: IImageExtended = JSON.parse(JSON.stringify(image));
+          const imgObj: IImage = JSON.parse(JSON.stringify(image));
 
           return (
             <SC.ImageContainer key={imgObj.pageUrl+index} href={imgObj.pageUrl} target="_blank">

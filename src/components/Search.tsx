@@ -1,8 +1,8 @@
-import React, { useState, useEffect, ChangeEvent } from "react";
+import React, { useContext, useState, useEffect, ChangeEvent } from "react";
 import {__RouterContext} from "react-router";
 import styled from "styled-components";
 import SearchIcon from "../images/active-search.svg";
-import { usePrevious } from "../App";
+import { usePrevious, AppContext } from "../App";
 
 const SearchContainer = styled.div`
   position: relative;
@@ -46,14 +46,20 @@ const Input = styled.div`
 
 const Search: React.FC<React.HTMLProps<HTMLInputElement>> = (props) => {
   const [searchValue, setSearchValue] = useState(props.value);
-  let inputRef:any = null;
+  const router = useContext(__RouterContext);
+  const {history, location} = router;
+  const historyPrev = usePrevious(Object.assign({}, history));
+  let inputRef: any = null;
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.currentTarget.value);
     return props.onChange(event);
   }
-  
+
   useEffect(() => {
+    // Focus on start
+    if(!historyPrev)
+      inputRef.focus();
   });
 
   return (

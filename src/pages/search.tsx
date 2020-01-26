@@ -32,7 +32,7 @@ const DoSearch = async (router: RouteComponentProps, loading: boolean, dispatch:
 };
 
 export interface IErrorMessage {
-  error: Error
+  error: Error;
 }
 
 export const ErrorContainer = styled.div`
@@ -114,8 +114,8 @@ const Search: React.FC<RouteComponentProps> = (router) => {
       loading={loading}
       title={title}
       onScrollEnd={async (results: any, dispatch: React.Dispatch<{}>) => {
-        let newOffset = offset+count;
-        let response = await DoSearch(router, true, dispatch, newOffset, count).catch((reason) => {
+        const newOffset = offset+count;
+        const response = await DoSearch(router, true, dispatch, newOffset, count).catch((reason) => {
           dispatch({
             type: "requestError",
             error: reason,
