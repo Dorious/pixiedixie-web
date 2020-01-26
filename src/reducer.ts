@@ -24,7 +24,7 @@ export default (state: any, action: any) => {
       return {
         ...state,
         results: [].concat(state.results, action.response.data.data),
-        totalCount: action.response.data.totalCount + state.totalCount,
+        totalCount: action.response.data.totalCount,
         offset: action.response.data.offset
       }
     case 'setSearchValue':
