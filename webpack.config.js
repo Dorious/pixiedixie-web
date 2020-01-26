@@ -1,8 +1,13 @@
-var path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+
+const mode = process.env.NODE_ENV || "production";
+
+console.log('Running in ' + mode);
 
 module.exports = {
-  mode: process.env.NODE_ENV || "production",
+  mode,
 
   // Enable sourcemaps for debugging webpack's output.
   devtool: "source-map",
@@ -68,6 +73,25 @@ module.exports = {
 
   performance: {
     hints: false,
-  }
+  },
 
 };
+
+if(mode === "production") {
+  module.exports.optimization = {
+    minimize: true,
+    minimizer: [new TerserPlugin({
+      parallel: true,
+      extractComments: false,
+      terserOptions: {
+        ecma: 6,
+        warnings: false,
+        mangle: true,
+        compress: true,
+        output: {
+          comments: false,
+        },
+      },
+    })]
+  }
+}
