@@ -15,16 +15,26 @@ module.exports = {
     rules: [
       {
         test: /\.ts(x?)$/,
-        exclude: /node_modules|\.svg/,
+        exclude: /node_modules/,
         use: [
           {
-            loader: "ts-loader"
+            loader: "babel-loader"
           },
         ]
       },
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        use: { loader: "react-svg-loader" }
+        use: [
+          {
+            loader: "babel-loader"
+          },
+          { 
+            loader: "react-svg-loader",
+            options: {
+              jsx: true
+            }
+          }
+        ],
       },
       {
         enforce: "pre",
