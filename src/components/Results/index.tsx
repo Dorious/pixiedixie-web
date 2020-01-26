@@ -7,6 +7,7 @@ import { AppContext } from "../../App";
 import styled from "styled-components";
 
 let scrollIsOn = false;
+const threshold = 600;
 
 /**
  * Fire lazy load of images;
@@ -41,7 +42,7 @@ const Results: React.FC<IResults> = ({title, results, loading, offset, onScrollE
 
     const html = document.querySelector('html');
 
-    if(window.innerHeight + html.scrollTop >= html.offsetHeight-600) {
+    if(window.innerHeight + html.scrollTop >= html.offsetHeight-threshold) {
       scrollIsOn=true;
 
       fireLazyLoad(results, dispatch, onScrollEnd)
