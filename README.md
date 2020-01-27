@@ -38,7 +38,7 @@ Instead of trying to proxy from one container to another I wil run them and then
 We are using `webpack-dev-server`, so:
 
 	$ npm start
-...and voila!
+...and voila! If you have api on different port check `webpack.config.js` for `proxy`.
 
 ### Used techs/libs:
 1. Webpack + Babel
