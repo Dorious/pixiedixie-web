@@ -50,6 +50,7 @@ We are using `webpack-dev-server`, so:
 ## TODO
 1. Generally this was done really fast testing new features and Styled Components, so this is not written beautifully.
 2. LazyLoading could be better and nicer indicated.
+2. Do better job when orientation change.
 2. Ideas I haven't added:
 	* DataSource picker
 
