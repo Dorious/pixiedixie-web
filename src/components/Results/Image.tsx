@@ -37,7 +37,7 @@ export const ImageContainer = styled.a`
   & img {
     width: 100%;
     height: auto;
-    display: inline-block;
+    display: block;
   }
 
   @media (min-width: ${responsiveWidth}) {
@@ -54,6 +54,7 @@ export const ImageContainer = styled.a`
     & img {
       width: auto;
       height: 100%;
+      display: inline-block;
     }
   }
 `;
