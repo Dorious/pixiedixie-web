@@ -12,6 +12,8 @@ const LogoContainer = styled.div`
   transition: width ${transitionTime} ease-in-out;
 
   & svg {
+    height: 52px;
+
     path {
       transition: all ${transitionTime} ease-in-out;
     }
@@ -29,13 +31,6 @@ const LogoContainer = styled.div`
 
     .dix-1 {
       transform: translateX(-20px); 
-    }
-  }
-
-  @media (max-width: 360px) {
-    & svg {
-      height: 40px;
-      margin-left: -25px;
     }
   }
 `;
@@ -64,6 +59,14 @@ export interface ILogo {
 const Logo: React.FC<ILogo> = ({responsive, svgStyle, useLink}) => {
   const Container = styled(responsive ? ResponsiveContainer : LogoContainer)`
     & svg { ${svgStyle} }
+
+    @media (max-width: 360px) {
+      & svg { height: 46px; width: 205px; }
+    }
+
+    @media (max-width: 340px) {
+      & svg { height: 40px; width: 178px; }
+    }
   `
 
   const link = useLink ? <Link to="/"><LogoSvg /></Link> : <LogoSvg />

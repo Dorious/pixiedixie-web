@@ -27,6 +27,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 120%;
     font-weight: Normal;
     color: #ff0088;
+    margin: 0 0 10px;
 
     @media (min-width: 800px) {
       font-size: 150%;
@@ -36,6 +37,7 @@ const GlobalStyle = createGlobalStyle`
 
 const AppBody = styled.div`
   margin: 58px 20px 250px 20px;
+  overflow: hidden;
 `
 
 const location = window.location;
