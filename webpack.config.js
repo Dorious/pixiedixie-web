@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 const mode = process.env.NODE_ENV || "production";
 
@@ -64,12 +65,17 @@ module.exports = {
     filename: 'pixiendixie.js'
   },
 
-  plugins: [new HtmlWebpackPlugin({
-    title: "Pixie & Dixie - the ultimate image search!",
-    meta: {
-      viewport: 'width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1'
-    }
-  })],
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: "Pixie & Dixie - the ultimate image search!",
+      meta: {
+        viewport: 'width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1'
+      }
+    }),
+    new CompressionPlugin({
+      filename: '[path].gz[query]',
+    })
+  ],
 
   performance: {
     hints: false,
