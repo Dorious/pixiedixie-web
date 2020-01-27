@@ -1,7 +1,6 @@
 import React, { useEffect, useContext, useReducer, useRef } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import styled, { createGlobalStyle } from 'styled-components';
-import {__RouterContext} from "react-router";
 import querystring from "querystring";
 
 import Header from "./components/Header";
