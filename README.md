@@ -50,9 +50,10 @@ We are using `webpack-dev-server`, so:
 ## TODO
 1. Generally this was done really fast testing new features and Styled Components, so this is not written beautifully.
 2. LazyLoading could be better and nicer indicated.
-2. Do better job when orientation change.
-2. Ideas I haven't added:
-	* DataSource picker
+3. Do better job when orientation change.
+4. Move action/logic stuff from ./components/* to HOC components.
+5. Ideas I haven't added:
+	* DataSource picker, we have ?datasources[] parameter and it's api so we can add user posibility to change them.
 
 [#api]: https://github.com/Dorious/pixiedixie-api "API"
 [#apidoc]: http://localhost:8001/api/v1 "API generated documentation"
