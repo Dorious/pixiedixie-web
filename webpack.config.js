@@ -1,8 +1,13 @@
-var path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+
+const mode = process.env.NODE_ENV || "production";
+
+console.log('Running in ' + mode);
 
 module.exports = {
-  mode: process.env.NODE_ENV,
+  mode,
 
   // Enable sourcemaps for debugging webpack's output.
   devtool: "source-map",
@@ -18,13 +23,23 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: "ts-loader"
+            loader: "babel-loader"
           },
         ]
       },
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        use: { loader: "react-svg-loader" }
+        use: [
+          {
+            loader: "babel-loader"
+          },
+          { 
+            loader: "react-svg-loader",
+            options: {
+              jsx: true
+            }
+          }
+        ],
       },
       {
         enforce: "pre",
@@ -37,8 +52,11 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
-    port: 9000,
+    port: 9001,
     historyApiFallback: true,
+    proxy: {
+      '/api/v1': 'http://localhost:8001/'
+    } 
   },
 
   output: {
@@ -47,11 +65,33 @@ module.exports = {
   },
 
   plugins: [new HtmlWebpackPlugin({
-    title: "Pixie & Dixie - the ultimate image search!"
+    title: "Pixie & Dixie - the ultimate image search!",
+    meta: {
+      viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no'
+    }
   })],
 
   performance: {
     hints: false,
-  }
+  },
 
 };
+
+if(mode === "production") {
+  module.exports.optimization = {
+    minimize: true,
+    minimizer: [new TerserPlugin({
+      parallel: true,
+      extractComments: false,
+      terserOptions: {
+        ecma: 6,
+        warnings: false,
+        mangle: true,
+        compress: true,
+        output: {
+          comments: false,
+        },
+      },
+    })]
+  }
+}
