@@ -7,9 +7,9 @@ COPY . .
 
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
-RUN npm install
-
 ENV NODE_ENV production
+
+RUN npm install
 
 EXPOSE 9000
 

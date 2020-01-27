@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    ports:
+     - "80:9000"
+    networks:
+     - pixie
+  api:
+    build: ../pixiedixie-api/.
+    networks:
+     - pixie
+
+networks:
+  pixie:

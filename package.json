@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint ./src/ --ext ts,tsx --fix --quiet",
     "build": "webpack",
-    "production": "serve -l 9000 dist/",
+    "production": "http-server dist/ -p 9000 --proxy http://127.0.0.1:8000/",
     "start": "webpack-dev-server",
     "test": "jest --coverage"
   },
@@ -66,10 +66,10 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "http-server": "^0.12.1",
     "pixiedixie-api": "https://github.com/Dorious/pixiedixie-api-dist.git",
     "query-string": "^6.10.1",
     "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "serve": "^11.3.0"
+    "react-dom": "^16.12.0"
   }
 }
