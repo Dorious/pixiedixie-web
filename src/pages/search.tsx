@@ -78,7 +78,7 @@ export const ErrorMessage: React.FC<IErrorMessage> = ({error}) => {
     <ErrorContainer>
       <Sad />
       <LogoContainer>
-        <Logo />
+        <Logo responsive={false} />
       </LogoContainer>
       {error.message}
     </ErrorContainer>

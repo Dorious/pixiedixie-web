@@ -33,6 +33,10 @@ export interface IResults {
   onScrollEnd?: Function;
 }
 
+const PlaceHolder = styled(SC.ImagesContainer)`
+  position: absolute;
+`
+
 const Results: React.FC<IResults> = ({title, results, loading, offset, onScrollEnd}) => {
   const titleNode = title;
   const [state, dispatch] = useContext(AppContext);
@@ -72,10 +76,6 @@ const Results: React.FC<IResults> = ({title, results, loading, offset, onScrollE
       }
     }
   });
-
-  const PlaceHolder = styled(SC.ImagesContainer)`
-    position: absolute;
-  `
 
   return (
     <>
