@@ -35,14 +35,24 @@ export interface IErrorMessage {
   error: Error;
 }
 
-export const ErrorContainer = styled.div`
+export const ErrorOverlay = styled.div`
   position: fixed;
   z-index: 10;
+  display: flex;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+`
+
+export const ErrorContainer = styled.div`
+  display: inline-block;
+  position: relative;
   padding: 20px 40px;
   background: #fff;
   box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
-  margin-top: 10%;
-  margin-left: 35%;
 `
 
 export const Sad = styled.div`
@@ -64,13 +74,15 @@ export const LogoContainer = styled.div`
 `
 
 export const ErrorMessage: React.FC<IErrorMessage> = ({error}) => {
-  return error ? <ErrorContainer>
-    <Sad />
-    <LogoContainer>
-      <Logo />
-    </LogoContainer>
-    {error.message}
-  </ErrorContainer> : null
+  return error ? <ErrorOverlay>
+    <ErrorContainer>
+      <Sad />
+      <LogoContainer>
+        <Logo />
+      </LogoContainer>
+      {error.message}
+    </ErrorContainer>
+  </ErrorOverlay> : null
 }
 
 const Search: React.FC<RouteComponentProps> = (router) => {

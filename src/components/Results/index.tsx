@@ -39,6 +39,7 @@ const Results: React.FC<IResults> = ({title, results, loading, offset, onScrollE
 
   const scrollHandler = (event: Event, results: any, dispatch: React.Dispatch<{}>) => {
     if(scrollIsOn) return;
+    if(!results || !results.length) return;
 
     const html = document.querySelector('html');
 
