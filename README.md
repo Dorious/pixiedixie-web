@@ -49,8 +49,9 @@ We are using `webpack-dev-server`, so:
 
 ## TODO
 1. Generally this was done really fast testing new features and Styled Components, so this is not written beautifully.
+2. LazyLoading could be better and nicer indicated.
 2. Ideas I haven't added:
 	* DataSource picker
 
-[#frontend]: https://github.com/Dorious/pixiedixie-api "API"
+[#api]: https://github.com/Dorious/pixiedixie-api "API"
 [#apidoc]: http://localhost:8001/api/v1 "API generated documentation"
