@@ -1,6 +1,6 @@
 {
   "name": "pixiedixie-web",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Pixie & Dixie Dev Test Front-end Demo",
   "main": "src/index.tsx",
   "scripts": {
